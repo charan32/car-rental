@@ -6,31 +6,37 @@
 	},
 	"item": [
 		{
-			"name": "add a car",
+			"name": "add a car ",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
 							"key": "vehicleno",
-							"value": "AP28bz1196",
+							"value": "AP28bz1128",
 							"type": "text"
 						},
 						{
 							"key": "model",
-							"value": "maruti",
+							"value": "hector",
 							"type": "text"
 						},
 						{
 							"key": "seatcapacity",
-							"value": "4",
+							"value": "6",
 							"type": "text"
 						},
 						{
 							"key": "rentperday",
-							"value": "1000",
+							"value": "1400",
 							"type": "text"
 						}
 					]
@@ -45,7 +51,8 @@
 						"admin",
 						"addCars"
 					]
-				}
+				},
+				"description": "add a car API is used to add a new car object into the Backend DB.\nevery value is important to be sent to the backend while adding a new car"
 			},
 			"response": []
 		},
@@ -53,13 +60,19 @@
 			"name": "delete a car",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
 							"key": "vehicleNo",
-							"value": "AP28bz1196",
+							"value": "AP28bz1195",
 							"type": "text"
 						}
 					]
@@ -74,7 +87,8 @@
 						"admin",
 						"deleteCar"
 					]
-				}
+				},
+				"description": "delete a car API is used by the admin to delete a particular car\nyou need to provide vehicle no to delete\nyou cant delete a car that is already booked"
 			},
 			"response": []
 		},
@@ -82,23 +96,30 @@
 			"name": "update car details",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
 							"key": "isRented",
 							"value": "true",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						},
 						{
 							"key": "price",
-							"value": "1200",
+							"value": "1350",
 							"type": "text"
 						},
 						{
 							"key": "vehicleNo",
-							"value": "AP28bz1195",
+							"value": "AP28bz1128",
 							"type": "text"
 						}
 					]
@@ -113,7 +134,8 @@
 						"admin",
 						"updateCar"
 					]
-				}
+				},
+				"description": "update a car API is used by the admin to update a particular car\nyou need to provide vehicle no to delete\nyou can provide other values to be updated "
 			},
 			"response": []
 		},
@@ -145,7 +167,8 @@
 						"user",
 						"availableCars"
 					]
-				}
+				},
+				"description": "check availability of cars API is used by the user to check cars available on applying particular filters\nyou can select the filters in body as needed\nyou will get result as per the filters"
 			},
 			"response": []
 		},
@@ -194,7 +217,8 @@
 						"user",
 						"bookCar"
 					]
-				}
+				},
+				"description": "book a car api is used by the user for booking a car for particular time period\nyou need to provide booking date and no of days for rent\nphone number and name of the user are mandatory"
 			},
 			"response": []
 		},
@@ -228,7 +252,8 @@
 						"user",
 						"cancelBooking"
 					]
-				}
+				},
+				"description": "cancel Booking api is used to cancel a rented car \nyou have to provide uniquie booking id given while booking\n"
 			},
 			"response": []
 		},
@@ -236,10 +261,25 @@
 			"name": "get all booked cars",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": ""
-				}
+					"raw": "http://localhost/admin/carsBooked",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"admin",
+						"carsBooked"
+					]
+				},
+				"description": "get all booked cars is used by the admin to check all the bookings happened."
 			},
 			"response": []
 		},
@@ -250,13 +290,19 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
 							"key": "vehicleNo",
-							"value": "AP28bz1195",
+							"value": "AP28bz1124",
 							"type": "text"
 						}
 					]
@@ -270,6 +316,66 @@
 					"path": [
 						"admin",
 						"carStatus"
+					]
+				},
+				"description": "status of a car API used to check booking status of a particular car\nvehicleNO must be provided "
+			},
+			"response": []
+		},
+		{
+			"name": "authenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7548a150-b590-4e4f-a0f2-9f7e1b89a381",
+						"exec": [
+							"const response=pm.response.json();",
+							"pm.environment.set(\"token\",response.jwt_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/admin/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"admin",
+						"authenticate"
 					]
 				}
 			},
