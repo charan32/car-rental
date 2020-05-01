@@ -7,6 +7,8 @@ exports.addNewCar=(req,res)=>{
     try{
     if(req.body != undefined){
     if(req.body.vehicleno!=undefined && req.body.model!=undefined && req.body.seatcapacity!=undefined && req.body.rentperday!=undefined  ){
+        var findcar=carModel.findCar(req.body.vehicleno);
+        if(findcar.length == 0){
     let car={
          vehicleNo:req.body.vehicleno,
          model:req.body.model,
@@ -22,6 +24,10 @@ if(result){
 else{
     res.send("not saved")
 }
+        }
+        else{
+            res.send("car with vehicle No :"+req.body.vehicleno+" already exists")
+        }
     }else{
         res.send("please provide all the values")
     }

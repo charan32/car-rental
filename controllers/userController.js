@@ -62,7 +62,8 @@ module.exports.bookCar=async (req,res)=>{
     try{
         if(req.body.vehicleNo != undefined){
             if(req.body.date != undefined){
-                
+                if(req.body.phone != undefined || req.body.name != undefined){
+       var mobile= Number(req.body.phone);             
 var car=await carModel.findCar(req.body.vehicleNo);
 if(req.body.date != undefined){
    var bookdate=new Date(req.body.date);
@@ -86,7 +87,7 @@ if(bookedDetails.length == 0){
     var bookingcardetails={
        _id:id,
         user:{Name:req.body.name,
-                phoneNo:Number(req.body.phone)
+                phoneNo:mobile,
         },
         car:{
             vehicleNo:req.body.vehicleNo,
@@ -99,13 +100,13 @@ if(bookedDetails.length == 0){
     var result=await  carBooking.addCarBooking(bookingcardetails);
     data={
         _id:id,
-        phoneNo:req.body.phone,
+        phoneNo:mobile,
         startDate:bookdate,
         endDate:endDate
     }
     var update=await carModel.updateBookedCar(req.body.vehicleNo,data)
-    
-    res.send("car Booked :" +id);
+
+    res.send("Boking Id : "+id+" \nissueDate : "+bookdate+" \nreturnDate : "+endDate+" \nphone no : "+mobile);
 }
 else{
     res.send("the car you have choosen is already booked for the given date please choose another car or another date")
@@ -114,7 +115,12 @@ else{
 }else{
     res.send("Invalid Date")
 
-}}else{
+}
+            }else{
+                res.send("please provide user Details")
+            }
+
+}else{
     res.send("please provide Booking Date ")
 }
         }

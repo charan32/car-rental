@@ -47,9 +47,9 @@ module.exports.addCarBooking = async function (carDetails) {
   
 }
 module.exports.findCarBooked=async function(vehicleno,bookdate){
-var result = await RentedCarInfo.find({"car.vehicleNo":vehicleno,BookingDate:{$lte:bookdate},BookingDate:{$gte:bookdate}}).exec();
+var result = await RentedCarInfo.find({"car.vehicleNo":vehicleno,$and:[{BookingDate:{$gte:bookdate}},{BookingDate:{$lte:bookdate}}]}).exec();
 return result;
-}
+}//$and:[{endDate:{$gte:bookdate}},{BookingDate:{$lte:bookdate}}]
 
 module.exports.cancelBooking=async function(id){
 var result = await RentedCarInfo.deleteOne({"_id":id}).exec();
