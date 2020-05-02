@@ -8,7 +8,6 @@ module.exports.availableCars=async (req,res)=>{
    if(req.body.date != undefined  ){
        var dateValid=moment(req.body.date,"mm/dd/yyyy").isValid();
        if(dateValid == true){
-       console.log(moment(req.body.date,"mm/dd/yyyy").isValid())
        if(req.body.days != undefined){
       req.body.date=new Date(req.body.date);
       endDate=new Date();
