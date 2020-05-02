@@ -116,12 +116,18 @@ module.exports.findStatusOfCar=async (req,res)=>{
     if(req.body.vehicleNo != undefined){
     var vehicleno=req.body.vehicleNo;
     var status = await carModel.findCar(vehicleno);
+    if(status.length !=0){
     
     var obj={
         Rented:status[0].isRented,
         BookedDates:status[0].BookedDates
     }
     res.send(obj);
+
+}
+else{
+    res.send("Ther is no car with provided vehicle no")
+}
 }
 else{
     res.send("please provide vehicle no")

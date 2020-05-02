@@ -2,22 +2,36 @@ var carModel=require('../models/cars');
 var carBooking=require('../models/carBooking');
 var dateFormat = require('dateformat');
 var { ObjectId } = require('mongodb');
+var moment=require('moment')
 module.exports.availableCars=async (req,res)=>{
     try{
-   if(req.body.date != undefined){
+   if(req.body.date != undefined  ){
+       var dateValid=moment(req.body.date,"mm/dd/yyyy").isValid();
+       if(dateValid == true){
+       console.log(moment(req.body.date,"mm/dd/yyyy").isValid())
        if(req.body.days != undefined){
       req.body.date=new Date(req.body.date);
       endDate=new Date();
       req.body.endDate=endDate.setDate(endDate.getDate() + Number(req.body.days));
       var bookedCars=await carModel.findAvailablityOfCars(req.body.date,req.body.endDate)
+      if(bookedCars[0].Field1.length !=0 || bookedCars[0].Field2!=0){
    var beforeFilters=[...bookedCars[0].field2,...bookedCars[0].Field1]
-var afterFilters=await applyFilters(beforeFilters,req);
-res.send(afterFilters);
+var afterFilters=await applyFilters(beforeFilters,req,res);
+if(afterFilters.length!=0){
+    res.send(afterFilters);
+
+}
+      }else{
+          res.send("No car available on given date please choose another date")
+      }
        }
        else{
         res.send("please provide number of days you need car")
        }
+   }else{
+       res.send("the date format must be mm/dd/yyyy")
    }
+}
 else{
     res.send("please provide a date to proceed")
 }
@@ -28,22 +42,49 @@ console.log(error);
     
 }
 
-var applyFilters=(data,req)=>{
+var applyFilters=(data,req,res)=>{
     try{
 var af=data;
 if(req.body.seatCapacity != undefined){
-af=af.filter(key=>key.seatCapacity==req.body.seatCapacity)
-}
+    
+        af=af.filter(key=>key.seatCapacity==req.body.seatCapacity)
+   if(af.length == 0){
+
+    
+        res.send("We only deal with car capacity of 4 and 6");
+        return af;
+   }
+
+    }
+
 if(req.body.model != undefined){
     af=af.filter(key=>key.model==req.body.model)
+    if(af.length ==0){
+        res.send("there is no such car model");
+        return af;
+        
+    }
 }
 if(req.body.minPrice != undefined ){
     af=af.filter(key=>key.price >=req.body.minPrice )
+    if(af.length ==0){
+        res.send("provide valid minPrice")
+        return af;
+
+    }
 }
 if(req.body.maxPrice != undefined){
     af=af.filter(key=>key.price<=req.body.maxPrice)
+    if(af.length ==0){
+        res.send("provide valid maxPrice");
+        return af;
+
+    }
 }
-return af;
+
+    return af;
+
+
     }
     catch(error){
         console.log(error);
@@ -62,6 +103,8 @@ module.exports.bookCar=async (req,res)=>{
     try{
         if(req.body.vehicleNo != undefined){
             if(req.body.date != undefined){
+                var dateValid=moment(req.body.date,"mm/dd/yyyy").isValid();
+                if(dateValid==true){
                 if(req.body.phone != undefined || req.body.name != undefined){
        var mobile= Number(req.body.phone);             
 var car=await carModel.findCar(req.body.vehicleNo);
@@ -119,7 +162,9 @@ else{
             }else{
                 res.send("please provide user Details")
             }
-
+        }else{
+            res.send("date format must be mm/dd/yyyy")
+        }
 }else{
     res.send("please provide Booking Date ")
 }
