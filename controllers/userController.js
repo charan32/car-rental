@@ -7,11 +7,13 @@ module.exports.availableCars=async (req,res)=>{
     try{
         
    if(req.body.date != undefined  &&  req.body.date.length != 0 ){
-    var bookdate=new Date(req.body.date)
-       if(bookdate > Date.now()){
-           if(req.body.days != 0){
-       var dateValid=moment(req.body.date,"mm/dd/yyyy").isValid();
+    var dateValid=moment(req.body.date,"mm/dd/yyyy").isValid();
        if(dateValid == true){
+           if(req.body.days != 0){
+      
+       var bookdate=new Date(req.body.date)
+       if(bookdate>Date.now()){
+           
        if(req.body.days != undefined){
       req.body.date=new Date(req.body.date);
       endDate=new Date();
@@ -32,13 +34,15 @@ if(afterFilters.length!=0){
         res.send("please provide number of days you need car")
        }
    }else{
-       res.send("the date format must be mm/dd/yyyy")
+       res.send("The Booking date cannot be from the past")  
+
    }
 }else{
     res.send("please provide no of days greater than 0")
 }
 }else{
-  res.send("The Booking date cannot be from the past")  
+    res.send("the date format must be mm/dd/yyyy")
+
 }
 }
 else{
