@@ -8,7 +8,7 @@ exports.addNewCar=(req,res)=>{
     if(req.body != undefined){
     if(req.body.vehicleno!=undefined && req.body.model!=undefined && req.body.seatcapacity!=undefined && req.body.rentperday!=undefined  ){
         var findcar=carModel.findCar(req.body.vehicleno);
-        if(findcar.length == 0){
+        if(findcar.length == 0 || findcar.length == undefined || findcar.length == null){
     let car={
          vehicleNo:req.body.vehicleno,
          model:req.body.model,
