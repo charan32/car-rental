@@ -3,11 +3,11 @@ var carBooking=require('../models/carBooking');
 var users=require('../models/users');
 
 
-exports.addNewCar=(req,res)=>{
+exports.addNewCar=async (req,res)=>{
     try{
     if(req.body != undefined){
     if(req.body.vehicleno!=undefined && req.body.model!=undefined && req.body.seatcapacity!=undefined && req.body.rentperday!=undefined  ){
-        var findcar=carModel.findCar(req.body.vehicleno);
+        var findcar=await carModel.findCar(req.body.vehicleno);
         if(findcar.length == 0 || findcar.length == undefined || findcar.length == null){
     let car={
          vehicleNo:req.body.vehicleno,
@@ -17,7 +17,7 @@ exports.addNewCar=(req,res)=>{
          creationDate:Date(Date.now())
     }
 
-var result=carModel.addCar(car);
+var result=await carModel.addCar(car);
 if(result){
     res.send("new car added")
 }
