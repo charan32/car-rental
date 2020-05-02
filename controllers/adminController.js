@@ -7,6 +7,8 @@ exports.addNewCar=async (req,res)=>{
     try{
     if(req.body != undefined){
     if(req.body.vehicleno!=undefined && req.body.model!=undefined && req.body.seatcapacity!=undefined && req.body.rentperday!=undefined  ){
+        if(Number(req.body.seatcapacity) ==4 || Number(req.body.seatcapacity) ==6){
+        if(Number(req.body.rentperday) >0){
         var findcar=await carModel.findCar(req.body.vehicleno);
         if(findcar.length == 0 || findcar.length == undefined || findcar.length == null){
     let car={
@@ -28,6 +30,12 @@ else{
         else{
             res.send("car with vehicle No :"+req.body.vehicleno+" already exists")
         }
+    }else{
+        res.send("rent per day must be greater than 0")
+    }
+}else{
+    res.send("choose seat capacity either 4 or 6")
+}
     }else{
         res.send("please provide all the values")
     }
@@ -78,7 +86,6 @@ if(vehicleNo!=undefined){
     if(findcar[0].isRented != true){
 
         var data={
-            isRented:req.body.isRented,
             price:req.body.price,
             updatedDate:Date.now()
         }
@@ -109,11 +116,16 @@ else{
 module.exports.findAllBookedCars=async (req,res)=>{
 
     var bookedCars=await carBooking.findAllBookedCars();
-    res.send(bookedCars);
+    if(bookedCars.length == 0){
+        res.send("there are no booked cars")
+    }else{
+        res.send(bookedCars);
+
+    }
 }
 
 module.exports.findStatusOfCar=async (req,res)=>{
-    if(req.body.vehicleNo != undefined){
+    if(req.body.vehicleNo != undefined && req.body.vehicleNo.length != 0){
     var vehicleno=req.body.vehicleNo;
     var status = await carModel.findCar(vehicleno);
     if(status.length !=0){

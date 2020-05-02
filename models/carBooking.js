@@ -14,6 +14,9 @@ const rentedCarSchema = new mongoose.Schema({
                 Name:String,
                 phoneNo:Number
             },
+            BookingId:{
+                type:String
+            },
         BookingDate: {
                 type: Date,
                 required: true 

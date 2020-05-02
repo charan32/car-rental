@@ -10,7 +10,7 @@ module.exports.authenticate=(req,res,next)=> {
     
     const user = users.find(u => u.username === req.body.username && u.password === req.body.password);
     if (user) {
-        const token = jwt.sign({ sub: user.id }, 'superSecret');
+        const token = jwt.sign({ sub: user.id }, 'superSecret',{expiresIn:"1h"});
       
        if(token)
        {

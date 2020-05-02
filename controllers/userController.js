@@ -5,7 +5,11 @@ var { ObjectId } = require('mongodb');
 var moment=require('moment')
 module.exports.availableCars=async (req,res)=>{
     try{
-   if(req.body.date != undefined  ){
+        var bookdate=new Date(req.body.date)
+   if(bookdate != undefined  ){
+       
+       if(bookdate > Date.now()){
+           if(req.body.days != 0){
        var dateValid=moment(req.body.date,"mm/dd/yyyy").isValid();
        if(dateValid == true){
        if(req.body.days != undefined){
@@ -30,9 +34,15 @@ if(afterFilters.length!=0){
    }else{
        res.send("the date format must be mm/dd/yyyy")
    }
+}else{
+    res.send("please provide no of days greater than 0")
+}
+}else{
+  res.send("The Booking date cannot be from the past")  
+}
 }
 else{
-    res.send("please provide a date to proceed")
+    res.send("please provide a valid  date to proceed")
 }
 }
 catch(error){
@@ -101,12 +111,15 @@ module.exports.bookCar=async (req,res)=>{
     
     try{
         if(req.body.vehicleNo != undefined){
+            if(req.body.phone != null && req.body.phone.length == 10){
+                if(req.body.name != null && req.body.name.length !=0){
             if(req.body.date != undefined){
+                if(Number(req.body.days) > 0){
                 var dateValid=moment(req.body.date,"mm/dd/yyyy").isValid();
                 if(dateValid==true){
                 if(req.body.phone != undefined || req.body.name != undefined){
        var mobile= Number(req.body.phone);             
-var car=await carModel.findCar(req.body.vehicleNo);
+
 if(req.body.date != undefined){
    var bookdate=new Date(req.body.date);
     
@@ -118,7 +131,8 @@ if(req.body.date != undefined){
 if(bookdate > Date.now()){
 
 
-
+    var car=await carModel.findCar(req.body.vehicleNo);
+    if(car.length !=0){
 var endDate=new Date(req.body.date);
 endDate.setDate(endDate.getDate() + Number(req.body.days));
 
@@ -135,13 +149,14 @@ if(bookedDetails.length == 0){
             vehicleNo:req.body.vehicleNo,
             id:car[0]._id
         },
+        BookingId:id,
         BookingDate:bookdate,
         days:Number(req.body.days),
         EndDate:endDate
     }
     var result=await  carBooking.addCarBooking(bookingcardetails);
     data={
-        _id:id,
+        BookingId:id,
         phoneNo:mobile,
         startDate:bookdate,
         endDate:endDate
@@ -155,6 +170,9 @@ else{
 
 }
 }else{
+    res.send("car with vehicle No :"+req.body.vehicleNo+" does not exist")
+}
+}else{
     res.send("Invalid Date")
 
 }
@@ -165,9 +183,19 @@ else{
             res.send("date format must be mm/dd/yyyy")
         }
 }else{
+    res.send("days must be greater than 0")
+}
+                }
+else{
     res.send("please provide Booking Date ")
 }
+            }else{
+                res.send("please provide a valid name");
+            }
+        }else{
+            res.send("please provide a valid Mobile number");
         }
+    }
         else{
             res.send("please provide vehicle no to book a car")
         }
