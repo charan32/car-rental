@@ -24,7 +24,6 @@ const carSchema = new mongoose.Schema({
           default: false
     },
     BookedDates:[{
-        BookingId:String,
         phoneNo:Number,
         startDate:Date,
         endDate:Date

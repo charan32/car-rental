@@ -5,9 +5,9 @@ var { ObjectId } = require('mongodb');
 var moment=require('moment')
 module.exports.availableCars=async (req,res)=>{
     try{
-        var bookdate=new Date(req.body.date)
-   if(bookdate != undefined  ){
-       
+        
+   if(req.body.date != undefined  &&  req.body.date.length != 0 ){
+    var bookdate=new Date(req.body.date)
        if(bookdate > Date.now()){
            if(req.body.days != 0){
        var dateValid=moment(req.body.date,"mm/dd/yyyy").isValid();
@@ -67,7 +67,7 @@ if(req.body.seatCapacity != undefined){
     }
 
 if(req.body.model != undefined){
-    af=af.filter(key=>key.model==req.body.model)
+    af=af.filter(key=>key.model==req.body.model.toLowerCase())
     if(af.length ==0){
         res.send("there is no such car model");
         return af;
@@ -156,7 +156,7 @@ if(bookedDetails.length == 0){
     }
     var result=await  carBooking.addCarBooking(bookingcardetails);
     data={
-        BookingId:id,
+        _id:id,
         phoneNo:mobile,
         startDate:bookdate,
         endDate:endDate

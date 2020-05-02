@@ -68,6 +68,6 @@ module.exports.findBooking=async function(id){
     return result;
 }
 module.exports.findAllBookedCars=async function(){
-    var result =  await RentedCarInfo.find({});
+    var result =  await RentedCarInfo.find({},{_id:0});
     return result;
 }

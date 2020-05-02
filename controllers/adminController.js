@@ -13,7 +13,7 @@ exports.addNewCar=async (req,res)=>{
         if(findcar.length == 0 || findcar.length == undefined || findcar.length == null){
     let car={
          vehicleNo:req.body.vehicleno,
-         model:req.body.model,
+         model:req.body.model.toLowerCase(),
          seatCapacity:req.body.seatcapacity,
          price:req.body.rentperday,
          creationDate:Date(Date.now())
