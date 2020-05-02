@@ -28,6 +28,8 @@ After successfully cloning the application.
  -for testing the local apllicaton import "whitepanda local api.postman_collection.json".
  
  -also import the environment "jwt.postman_environment.json"(Necessary for JWT authentication).
+
+ -you can find the request description in the request description section
  
  NOTE 1:While accessing the Admin API's for the first time, hit the /authenticate API it will let you access remianing admin API's
  
@@ -41,6 +43,8 @@ After successfully cloning the application.
  -for testing the local apllicaton import "whitepanda server api.postman_collection.json".
  
  -also import the environment "jwt.postman_environment.json"(Necessary for JWT authentication).
+
+ -you can find the request description in the request description section
  
  NOTE 1:While accessing the Admin API's for the first time, hit the /authenticate API it will let you access remianing admin API's
  

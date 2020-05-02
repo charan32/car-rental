@@ -185,17 +185,17 @@
 						},
 						{
 							"key": "date",
-							"value": "hbsbhb",
+							"value": "05/04/2020",
 							"type": "text"
 						},
 						{
 							"key": "days",
-							"value": "3",
+							"value": "1",
 							"type": "text"
 						},
 						{
 							"key": "model",
-							"value": "swift",
+							"value": "Swift",
 							"type": "text"
 						},
 						{
@@ -311,12 +311,7 @@
 					"urlencoded": [
 						{
 							"key": "bookingId",
-							"value": "5eabdbb2bf801e43b88bb348",
-							"type": "text"
-						},
-						{
-							"key": "vehicleNo",
-							"value": "AP28bz1127",
+							"value": "5eadbdb96f576d798c69482a",
 							"type": "text"
 						}
 					]
@@ -351,19 +346,13 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "isRented",
-							"value": "true",
-							"type": "text",
-							"disabled": true
-						},
-						{
 							"key": "price",
 							"value": "1350",
 							"type": "text"
 						},
 						{
 							"key": "vehicleNo",
-							"value": "AP28bz1128",
+							"value": "AP28bz1120",
 							"type": "text"
 						}
 					]
