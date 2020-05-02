@@ -6,7 +6,8 @@ clone into our local machine using this command:
 git clone https://charanjana@bitbucket.org/charanjana/car-rental.git
 
 -RUNNING the Applicaton
-after successfully cloning the application,Navigate to the project file and execute following commands.
+After successfully cloning the application.
+-Navigate to the project file and execute following commands.
 
  -npm install
  this will install necessary node modules 
