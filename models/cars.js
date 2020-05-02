@@ -243,4 +243,11 @@ module.exports.updateCanceledCar = async function (vehicleno,phone,bool) {
   
 }
 
-
+module.exports.findAllCars=async function(){
+    try{
+var result=await Car.find({}).exec();
+return result;
+    }catch(error){
+        console.log(error);
+    }
+}

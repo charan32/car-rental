@@ -128,4 +128,17 @@ else{
 }
 }
 
+module.exports.getAllCars=async (req,res)=>
+{
+
+var cars=await carModel.findAllCars();
+if(cars.length !=0 ){
+    res.send(cars);
+
+}else{
+    res.send("there are no cars to display!")
+}
+    
+}
+
 

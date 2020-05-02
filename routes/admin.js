@@ -4,7 +4,8 @@ var adminController=require('../controllers/adminController');
 var isAuth=require('../middleware/isAuth')
 
 /* GET home page. */
-router.get('/authenticate',isAuth.authenticate)
+router.get('/authenticate',isAuth.authenticate);
+router.get('/getAllCars',isAuth.verifyToken,adminController.getAllCars)
 router.post('/addCars',isAuth.verifyToken,adminController.addNewCar);
 router.post('/deleteCar',isAuth.verifyToken,adminController.deleteCar);
 router.post('/updateCar',isAuth.verifyToken,adminController.updateCar);
