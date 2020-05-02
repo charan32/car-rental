@@ -7,8 +7,21 @@ var logger = require('morgan');
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 var dbService=require('./config/db')
+var fs=require('fs');
+
 
 var app = express();
+
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/charanpandaassesment.duckdns.org/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/charanpandaassesment.duckdns.org/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/charanpandaassesment.duckdns.org/chain.pem', 'utf8');
+
+const credentials = {
+        key: privateKey,
+        cert: certificate,
+        ca: ca
+};
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,7 +55,9 @@ app.use(function(err, req, res, next) {
 dbService.connectToServer(function(response){
  
 	var http = require('http');
-	http.createServer(app).listen(80).timeout = 180000;
+  http.createServer(app).listen(80).timeout = 180000;
+  var https = require('https');
+  var httpsServer = https.createServer(credentials, app).listen(443);
       //app.listen(common.port);//server is created here
       //log.info("Node server started ")
 });
