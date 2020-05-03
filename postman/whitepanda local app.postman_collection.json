@@ -41,11 +41,13 @@
 						{
 							"key": "username",
 							"value": "test",
+							"description": "user name and password are static,please use the same for authenticity",
 							"type": "text"
 						},
 						{
 							"key": "password",
 							"value": "test",
+							"description": "your jwt will expire in one hour ",
 							"type": "text"
 						}
 					]
@@ -81,22 +83,22 @@
 					"urlencoded": [
 						{
 							"key": "vehicleno",
-							"value": "AP28bz1128",
+							"value": "AP28bz1120",
 							"type": "text"
 						},
 						{
 							"key": "model",
-							"value": "hector",
+							"value": "sWiFt",
 							"type": "text"
 						},
 						{
 							"key": "seatcapacity",
-							"value": "6",
+							"value": "4",
 							"type": "text"
 						},
 						{
 							"key": "rentperday",
-							"value": "1400",
+							"value": "1200",
 							"type": "text"
 						}
 					]
@@ -135,7 +137,7 @@
 					"urlencoded": [
 						{
 							"key": "vehicleNo",
-							"value": "AP28bz1124",
+							"value": "AP28bz1122",
 							"type": "text"
 						}
 					]
@@ -159,9 +161,23 @@
 			"name": "get all cars - admin",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost/admin/getAllCars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"admin",
+						"getAllCars"
+					]
 				},
 				"description": "this API is used to get all the cars present in the db"
 			},
@@ -186,11 +202,13 @@
 						{
 							"key": "date",
 							"value": "05/04/2020",
+							"description": "date format must be mm/dd/yyy",
 							"type": "text"
 						},
 						{
 							"key": "days",
 							"value": "1",
+							"description": "date and days fields are mandatory",
 							"type": "text"
 						},
 						{
@@ -235,7 +253,7 @@
 					"urlencoded": [
 						{
 							"key": "vehicleNo",
-							"value": "AP28bz1124",
+							"value": "AP28bz1120",
 							"type": "text"
 						},
 						{
@@ -245,17 +263,19 @@
 						},
 						{
 							"key": "phone",
-							"value": "8008233651",
+							"value": "8008233650",
 							"type": "text"
 						},
 						{
 							"key": "date",
-							"value": "10/15/2020",
+							"value": "10/15/2022",
+							"description": "date format must be mm/dd/yyy",
 							"type": "text"
 						},
 						{
 							"key": "days",
-							"value": "3",
+							"value": "2",
+							"description": "date and days fields are mandatory",
 							"type": "text"
 						}
 					]
@@ -388,7 +408,7 @@
 					"urlencoded": [
 						{
 							"key": "vehicleNo",
-							"value": "AP28bz1195",
+							"value": "AP28bz1120",
 							"type": "text"
 						}
 					]

@@ -41,11 +41,13 @@
 						{
 							"key": "username",
 							"value": "test",
+							"description": "user name and password are static,please use the same for authenticity",
 							"type": "text"
 						},
 						{
 							"key": "password",
 							"value": "test",
+							"description": "your jwt will expire in one hour ",
 							"type": "text"
 						}
 					]
@@ -83,22 +85,22 @@
 					"urlencoded": [
 						{
 							"key": "vehicleno",
-							"value": "AP28bz1121",
+							"value": "AP28bz1128",
 							"type": "text"
 						},
 						{
 							"key": "model",
-							"value": "scorpio",
+							"value": "amaze",
 							"type": "text"
 						},
 						{
 							"key": "seatcapacity",
-							"value": "6",
+							"value": "4",
 							"type": "text"
 						},
 						{
 							"key": "rentperday",
-							"value": "1500",
+							"value": "1300",
 							"type": "text"
 						}
 					]
@@ -214,12 +216,14 @@
 						},
 						{
 							"key": "date",
-							"value": "05/15/2020",
+							"value": "05/04/2020",
+							"description": "date format must be mm/dd/yyy",
 							"type": "text"
 						},
 						{
 							"key": "days",
 							"value": "1",
+							"description": "date and days fields are mandatory",
 							"type": "text"
 						},
 						{
@@ -266,7 +270,7 @@
 					"urlencoded": [
 						{
 							"key": "vehicleNo",
-							"value": "AP28bz1128",
+							"value": "AP28bz1120",
 							"type": "text"
 						},
 						{
@@ -282,11 +286,13 @@
 						{
 							"key": "date",
 							"value": "05/15/2020",
+							"description": "date format must be mm/dd/yyyy",
 							"type": "text"
 						},
 						{
 							"key": "days",
 							"value": "3",
+							"description": "date and days fields are mandatory",
 							"type": "text"
 						}
 					]
@@ -353,7 +359,7 @@
 					"urlencoded": [
 						{
 							"key": "bookingId",
-							"value": "5ead53cc2860b2458efc5456",
+							"value": "5eae4c17b2fe614ec74fc53b",
 							"type": "text"
 						}
 					]
